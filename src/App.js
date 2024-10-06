@@ -32,7 +32,6 @@ componentDidMount(){
 		for(let i=0; i < count; i++) {
 			temp.push(this.generateRandomNumber(50, 200));
 		}
-
 		this.setState({
 			array: temp,
 			arraySteps: [temp]
@@ -40,16 +39,23 @@ componentDidMount(){
 	}
 
 	render() {
-		let bars = this.state.array.map((value, index)=>{
+		let bars = this.state.array.map((value, index) => (
 			<Bar 
 				key={index} 
 				index={index} 
 				length={value} 
-				color={this.state.colorKey[index]}/>
-		});
-		return <div className='app'>
-			<h1>{bars}</h1>
-		</div>
+				color={0}
+			/>)
+		);
+		return (
+			<div className='app'>
+				<div className='frame'>
+					<div className='barsDiv container card'>{bars}</div>
+				</div>
+				<div className='control-panel'></div>
+				<div className='pannel'></div>
+			</div>
+		)
 	}
 }
 
