@@ -36,7 +36,24 @@ componentDidMount(){
 		return Math.floor(Math.random() * (max-min) + min);
 	}
 
+	clearTimeouts = () => {
+		this.state.timeouts.forEach((timeout) => this.clearTimeouts(timeout) );
+		this.setState({
+			timeouts: []
+		});
+	}
+	
+	clearColorKey = () => {
+		let blankKey = new Array(this.state.count).fill(0);
+		this.setState({
+			colorKey: blankKey,
+			colorSteps: [blankKey]
+		})
+	}
+
 	generteRandomArray = () => {
+		this.clearTimeouts();
+		this.clearColorKey();
 		const count = this.state.count;
 		const temp = this.state.array;
 
@@ -57,7 +74,7 @@ componentDidMount(){
 
 		this.ALGORITHMS[this.state.algorithm](array, 0, steps, colorSteps);
 		this.setState({
-			arraySteps: array,
+			arraySteps: steps,
 			colorSteps: colorSteps
 		})
 	}
@@ -69,10 +86,35 @@ componentDidMount(){
 			array: arr,
 			arraySteps: [arr],
 			currentStep: 0
-		})
+		}, ()=>{
+			this.generateSteps();
+		});
 	}
 
+	start = () => {
+		let steps = this.state.arraySteps;
+		let colorSteps = this.state.colorSteps;
 
+		this.clearTimeouts();
+
+		let timeouts = [];
+		let i = 0;
+		while(i < steps.length - this.state.currentStep) {
+			let timeout = setTimeout( ()=> {
+				let currentStep = this.state.currentStep;
+				this.setState({
+					array: steps[currentStep],
+					colorKey: colorSteps[currentStep],
+					currentStep: currentStep + 1,
+				});
+				timeouts.push(timeout);
+			}, this.state.delay*i);
+			i++;
+		}
+		this.setState({
+			timeouts: timeouts
+		})
+	}
 
 	render() {
 		let bars = this.state.array.map((value, index) => (
@@ -94,7 +136,7 @@ componentDidMount(){
 			)
 		} else {
 			playButton = (
-				<button className='controller'>
+				<button className='controller' onClick={this.start}>
 					<Play/>
 				</button>
 			)

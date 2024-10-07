@@ -50,12 +50,15 @@ function Bar({index, length, color, changeArray}) {
         let val = e.target.value;
         if(val === '') {
             setLen(0);
+            changeArray(index, 0);
         } else {
             val = parseInt(val);
             if(val > 200) {
-                setLen(200)
+                setLen(200);
+                changeArray(index, 0);
             } else {
                 setLen(val);
+                changeArray(index, 0);
             }
         }
     }
