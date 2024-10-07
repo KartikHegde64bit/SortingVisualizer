@@ -1,8 +1,8 @@
-.App{
-  	text-align: center;
+.App {
+	text-align: center;
 }
 
-.frame{
+.frame {
 	margin: 0;
 	display: flex;
 	justify-content: center;
@@ -23,7 +23,7 @@
 	background-color: #818181;
 }
 
-.controller{
+.controller {
 	background: #555;
 	margin: 0 1em;
 	border: 1px solid;
@@ -37,7 +37,7 @@
 	align-items: center;
 }
 
-.control-buttons{
+.control-buttons {
 	height: 4em;
 	width: 15em;
 	background-color: #eee;
@@ -46,9 +46,11 @@
 	align-items: center;
 }
 
-.control-panel{
+.control-pannel {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+}
+
+.pannel {
 }
