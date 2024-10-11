@@ -182,21 +182,25 @@ class App extends Component {
 
 		return (
 			<div className='app'>
-				<div className='frame'>
-					<div className='barsDiv container card'>{bars}</div>
-				</div>
-				<div className='control-pannel'>
-					<div className='control-buttons'>
-						<button className='controller' onClick={this.previousStep}>
-							<Backward />
-						</button>
-						{playButton}
-						<button className='controller' onClick={this.nextStep}>
-							<Forward />
-						</button>
+				<div className='parent'>
+					<div className='sort-selection'></div>
+					<div>
+						<div className='frame'>
+							<div className='barsDiv container card'>{bars}</div>
+						</div>
+						<div className='control-pannel'>
+							<div className='control-buttons'>
+								<button className='controller' onClick={this.previousStep}>
+									<Backward />
+								</button>
+								{playButton}
+								<button className='controller' onClick={this.nextStep}>
+									<Forward />
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div className='pannel'></div>
 			</div>
 		);
 	}

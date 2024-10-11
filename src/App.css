@@ -5,14 +5,14 @@
 .frame {
 	margin: 0;
 	display: flex;
-	justify-content: center;
+	justify-content: right;
 	align-items: center;
 }
 
 .container {
 	margin: 5em 0;
 	display: flex;
-	justify-content: center;
+	justify-content: right;
 	align-items: center;
 	height: 220px;
 }
@@ -53,4 +53,23 @@
 }
 
 .pannel {
+}
+
+.sort-selection{
+	display: flex;
+	height:800px ;
+	width: 33% ;
+	border: 1px solid black;
+	border-radius: 5px;
+	background-color: #f0f0f0;
+	border-style: solid;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+
+.parent{
+	display: flex;
+	/* justify-content: space-between; */
 }
