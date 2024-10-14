@@ -1,0 +1,30 @@
+.uxcell {
+    background-color: #eae4e4; 
+    border: 5px solid #3a2b2b; 
+    position: relative;
+    width: 70px;
+    height: 70px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.matrix-index {
+    display: none; /* Hide by default */
+    position: absolute; /* Position it absolutely */
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7); /* Optional: background color */
+    color: white; /* Optional: text color */
+    /* padding: 5px;  */
+    border-radius: 3px; /* Optional: rounded corners */
+}
+
+.uxcell:hover .matrix-index {
+    display: block; /* Show on hover */
+}
+
+.cell-value{
+    font-size: large;
+    font-weight: 600;
+}
