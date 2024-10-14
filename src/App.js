@@ -201,6 +201,11 @@ class App extends Component {
 						</div>
 					</div>
 				</div>
+
+			{/* AlgoViz starts */}
+				<div className='uxboard'>
+					<UxBoard/>
+				</div>
 			</div>
 		);
 	}
