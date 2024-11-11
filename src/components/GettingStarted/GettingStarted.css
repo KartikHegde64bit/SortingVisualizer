@@ -1,0 +1,11 @@
+.sorting-button{
+    /* display: flex; */
+    margin-left: 80px;
+}
+
+.intro-text{
+    display: flex;
+    margin-left: 100px;
+    font-size: large;
+    margin-bottom: 40px;
+}

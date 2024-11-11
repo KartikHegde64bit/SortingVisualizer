@@ -4,13 +4,14 @@ import * as ReactDOM from "react-dom/client";
 import './HomePage.css';
 import UxBoard from '../UxBoard/UxBoard';
 import SortingComponent from '../SortingComponent/SortingComponent';
+import GettingStarted from '../GettingStarted/GettingStarted';
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
     {
         path: "",
-        element: <div>This is just homepage</div>
+        element: <GettingStarted/>
     },
     {
         path: "/sortAlgorithms",
