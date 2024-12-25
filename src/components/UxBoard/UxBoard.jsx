@@ -13,6 +13,8 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
     const rows = inputMatrix.length;
     const cols = inputMatrix[0].length;
 
+    const [highlightedCell, setHighlightedCell] = useState(null);
+
     const runAlgorithm = () => {
         console.log("it's running");
         const testMatrix = generateRandomMatrix(inputMatrix.length, inputMatrix[0].length);
@@ -43,17 +45,26 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
         }
         return returnArray;
     }
-    
+
+    const markRandomCell = () => {
+        const randomRow = Math.floor(Math.random() * rows);
+        const randomCol = Math.floor(Math.random() * cols);
+        setHighlightedCell({ rowIndex: randomRow, colIndex: randomCol });
+        
+    }
+
     return ( 
         <div className='uxboard-grid-container'>
             <div className="uxboard-grid" style={{ "--rows": rows, "--cols": cols }}>
                 {inputMatrix.map((row, rowIndex) => 
-                    row.map((cellVal, colIndex) => (
-                        <UxCell key={`${rowIndex}-${colIndex}`} rowIndex={rowIndex} colIndex={colIndex} cellValue={cellVal} />
+                    row.map((cellValue, colIndex) => (
+                        <UxCell key={`${rowIndex}-${colIndex}`} rowIndex={rowIndex} colIndex={colIndex} cellValue={cellValue} isHighlighted={highlightedCell && highlightedCell.rowIndex === rowIndex && highlightedCell.colIndex === colIndex} />
                     ))
                 )}
             </div>
             <button className='run-button' onClick={runAlgorithm}>Run</button>
+
+            <button className='mark-button' onClick={markRandomCell}>Mark Random Cell</button>
         </div>
     );
 };

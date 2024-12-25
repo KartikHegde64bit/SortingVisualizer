@@ -8,6 +8,8 @@ const GettingStarted = () => {
             case "sortingRoute":
                 navigate("/sortAlgorithms");
                 break;
+            case "graphRoute":
+                navigate("/graphAlgorithms")
         }
 
     }
@@ -18,9 +20,9 @@ const GettingStarted = () => {
                 What Would You Like To Do ?
             </div>
             <div>
-                <button className='sorting-button' onClick={buttonRouteHandler("sortingRoute")}>Visualise Sorting Algorithms</button>
+                <button className='sorting-button' onClick={() => buttonRouteHandler("sortingRoute")}>Visualise Sorting Algorithms</button>
 
-                <button className='graph-button' onClick={buttonRouteHandler("graphRoute")}>Visualise Graph Algorithms</button>
+                <button className='graph-button' onClick={() => buttonRouteHandler("graphRoute")}>Visualise Graph Algorithms</button>
             </div>
         </div>
     )
