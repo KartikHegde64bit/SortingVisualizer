@@ -4,7 +4,7 @@
     @param adjacenyMatrix
     @param startNode
 */
-const breadthFirstSearch = (adjacenyMatrix, startNode) => {
+export const breadthFirstSearch = (adjacenyMatrix, startNode) => {
     let queue = [startNode],
         visited = new Set(),  
         result = [];
@@ -30,9 +30,12 @@ const breadthFirstSearch = (adjacenyMatrix, startNode) => {
  * @param {*} grid 
  * @param {*} startRow 
  * @param {*} startCol 
+ * @param callBackFunction
+ * @param callBackFunctionParams
  * @returns 
  */
-let breadthFirstSearchFor2DGrid = (grid, startRow, startCol) => {
+
+export const breadthFirstSearchFor2DGrid = async (grid, startRow, startCol, callBackFunction) => {
     // Grid dimensions
     const rows = grid.length;
     const cols = grid[0].length;
@@ -46,7 +49,7 @@ let breadthFirstSearchFor2DGrid = (grid, startRow, startCol) => {
     ];
 
     const directionValidator = (row, col) => {
-        return newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols;
+        return row >= 0 && row < rows && col >= 0 && col < cols;
     }
 
     // Queue to manage the BFS traversal
@@ -55,7 +58,7 @@ let breadthFirstSearchFor2DGrid = (grid, startRow, startCol) => {
     // Set to keep track of visited cells
     let visited = new Set();
     visited.add(`${startRow},${startCol}`);
-
+    callBackFunction.call(undefined, startRow, startCol);
     // Result array to store traversal order
     let result = [];
 
@@ -66,17 +69,18 @@ let breadthFirstSearchFor2DGrid = (grid, startRow, startCol) => {
 
         // Explore all possible directions
         for (const [dRow, dCol] of directions) {
-            const newRow = currentRow + dRow;
-            const newCol = currentCol + dCol;
+            // setTimeout(()=>{
+                const newRow = currentRow + dRow;
+                const newCol = currentCol + dCol;
 
-            // Check if the new cell is within bounds ? and not visited ?
-            if ( directionValidator(newRow, newCol) &&
-                !visited.has(`${newRow},${newCol}`) &&
-                grid[newRow][newCol] === 1 // Check if the cell is valid (e.g., `1` for traversable cells)
-            ) {
-                queue.push([newRow, newCol]);
-                visited.add(`${newRow},${newCol}`);
-            }
+                // Check if the new cell is within bounds ? and not visited ?
+                if ( directionValidator(newRow, newCol) && !visited.has(`${newRow},${newCol}`)) {
+                        queue.push([newRow, newCol]);
+                        callBackFunction.call(undefined, newRow, newCol);
+                        visited.add(`${newRow},${newCol}`);
+                }
+                await new Promise(resolve => setTimeout(resolve, 200));
+            // }, 500)
         }
     }
 
