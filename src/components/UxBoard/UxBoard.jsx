@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './UxBoard.css';
 import UxCell from '../UxCell/UxCell';
 import {breadthFirstSearchFor2DGrid} from 'D:/Programming/Projects/sortingviz/src/algorithms/graph/bfs.js';
+import { depthFirstSearchFor2DGrid } from '../../algorithms/graph/dfs';
 
 const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
     const [inputMatrix, setInputMatrix] = useState([
@@ -65,9 +66,37 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
         
     }
 
-    const initiateBfs = () => {
-        breadthFirstSearchFor2DGrid(inputMatrix, 0, 0, highlightCell);
+    const initiateAlgorithmOnGrid = (algorithm) => {
+        switch(algorithm) {
+            case "Breadth First Search":
+                breadthFirstSearchFor2DGrid(inputMatrix, 0, 0, highlightCell); // since this is not a class based react component,
+            break;                                                               // component scope need not be passed separately with the
+                                                                               // callback function
+            case "Depth First Search":
+                depthFirstSearchFor2DGrid(inputMatrix, 0, 0, highlightCell);
+            break;
+        }
+       
     }
+
+    const [selectedOption, setSelectedOption] = useState('Breadth First Search'); 
+    const options = ['Breadth First Search', 'Depth First Search', 'coming soon..'];
+
+    const handleOptionChange = (event) => {
+        const algorithm = event.target.value;
+    
+        // Clear the grid and initiate the algorithm only after the grid is cleared
+        clearGrid(() => {
+            setSelectedOption(algorithm);
+            initiateAlgorithmOnGrid(algorithm);
+        });
+    };
+
+    const clearGrid = () => {
+        //setHighlightedCellGrid(new Array(rows).fill(0).map(() => new Array(cols).fill(0)));
+        setHighlightedCellGrid(Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0)));
+    }
+
     return ( 
         <div className='uxboard-grid-container'>
             <div className="uxboard-grid" style={{ "--rows": rows, "--cols": cols }}>
@@ -80,7 +109,13 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
             <button className='run-button' onClick={randomiseMatrixValues}>Randomise</button>
 
             <button className='mark-button' onClick={markRandomCell}>Mark Random Cell</button>
-            <button className='mark-button' onClick={initiateBfs}>Run BFS</button>
+            <select value={selectedOption} onChange={handleOptionChange}>
+                {options.map((option) => (
+                    <option key={option} value={option}>
+                    {option}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 };
