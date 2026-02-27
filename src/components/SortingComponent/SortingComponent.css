@@ -57,15 +57,34 @@
 
 .sort-selection{
 	display: flex;
-	height:800px ;
-	width: 330px ;
-	border: 1px solid black;
-	border-radius: 5px;
+	flex-direction: column;
+	gap: 1em;
+	min-width: 260px;
+	max-width: 320px;
+	padding: 1.5em 1em;
+	border: 1px solid #aaa;
+	border-radius: 8px;
 	background-color: #f0f0f0;
-	border-style: solid;
-	margin-top: 10px;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin: 10px;
+}
+
+.sort-selection select {
+	padding: 0.5em;
+	border-radius: 6px;
+	border: 1px solid #999;
+}
+
+.generate-button {
+	padding: 0.6em;
+	border-radius: 6px;
+	border: 1px solid #333;
+	background-color: #3d3d3d;
+	color: #fff;
+	cursor: pointer;
+}
+
+.step-counter {
+	font-weight: 600;
 }
 
 

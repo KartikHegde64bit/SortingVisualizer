@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 
 // Algorithms
 import BubbleSort from '../../algorithms/BS';
+import InsertionSort from '../../algorithms/insertionSort';
+import SelectionSort from '../../algorithms/selectionSort';
+import MergeSort from '../../algorithms/mergeSort';
+import QuickSort from '../../algorithms/quickSort';
+import HeapSort from '../../algorithms/heapSort';
 
 // Icons
 import PlayIcon from '@material-ui/icons/PlayCircleOutlineRounded';
@@ -28,6 +33,11 @@ class SortingComponent extends Component {
 
     ALGORITHMS = {
         'Bubble Sort': BubbleSort,
+        'Selection Sort': SelectionSort,
+        'Insertion Sort': InsertionSort,
+        'Merge Sort': MergeSort,
+        'Quick Sort': QuickSort,
+        'Heap Sort': HeapSort,
     };
 
     componentDidMount() {
@@ -39,7 +49,12 @@ class SortingComponent extends Component {
         const steps = [...this.state.arraySteps];
         const colorSteps = [...this.state.colorSteps];
 
-        this.ALGORITHMS[this.state.algorithm](arrayCopy, 0, steps, colorSteps);
+        const algorithmFn = this.ALGORITHMS[this.state.algorithm];
+        if (!algorithmFn) {
+            return;
+        }
+
+        algorithmFn(arrayCopy, 0, steps, colorSteps);
 
         this.setState({
             arraySteps: steps,
@@ -58,6 +73,23 @@ class SortingComponent extends Component {
             colorKey: blankKey,
             colorSteps: [blankKey],
         });
+    };
+
+    handleAlgorithmChange = (event) => {
+        const algorithm = event.target.value;
+        const blankKey = Array(this.state.count).fill(0);
+
+        this.clearTimeouts();
+        this.setState(
+            (prevState) => ({
+                algorithm,
+                colorKey: blankKey,
+                colorSteps: [blankKey],
+                arraySteps: [prevState.array],
+                currentStep: 0,
+            }),
+            this.generateSteps
+        );
     };
 
     generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
@@ -136,7 +168,7 @@ class SortingComponent extends Component {
     };
 
     render() {
-        const { array, colorKey, arraySteps, currentStep } = this.state;
+        const { array, colorKey, arraySteps, currentStep, algorithm } = this.state;
 
         const bars = array.map((value, index) => (
             <Bar
@@ -162,7 +194,22 @@ class SortingComponent extends Component {
         return (
             <div className="sortingcomponent">
                 <div className="parent">
-                    <div className="sort-selection"></div>
+                    <div className="sort-selection">
+                        <h3>Sorting Algorithms</h3>
+                        <select value={algorithm} onChange={this.handleAlgorithmChange}>
+                            {Object.keys(this.ALGORITHMS).map((algo) => (
+                                <option key={algo} value={algo}>
+                                    {algo}
+                                </option>
+                            ))}
+                        </select>
+                        <button className="generate-button" onClick={this.generateRandomArray}>
+                            New Array
+                        </button>
+                        <div className="step-counter">
+                            Step {currentStep + 1} / {arraySteps.length}
+                        </div>
+                    </div>
                     <div>
                         <div className="frame">
                             <div className="barsDiv container card">{bars}</div>
