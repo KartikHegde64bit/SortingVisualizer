@@ -47,13 +47,40 @@
 }
 
 .control-group select,
-.control-group input[type='range'] {
+.control-group input[type='range'],
+.control-group input[type='number'] {
     width: 100%;
     padding: 0.55rem 0.75rem;
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--surface-muted);
     color: var(--text-primary);
+}
+
+.grid-customize {
+    gap: 0.6rem;
+}
+
+.grid-size-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.grid-size-inputs > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.grid-size-inputs span {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.apply-grid {
+    width: fit-content;
 }
 
 .control-actions {
@@ -103,10 +130,10 @@
 .uxboard-grid {
     display: grid;
     justify-content: center;
-    width: 520px;
-    height: 520px;
-    grid-template-columns: repeat(var(--cols), 100px);
-    grid-template-rows: repeat(var(--rows), 100px);
+    width: fit-content;
+    height: fit-content;
+    grid-template-columns: repeat(var(--cols), var(--cell-size));
+    grid-template-rows: repeat(var(--rows), var(--cell-size));
     gap: 10px;
     padding: 14px;
     background: var(--surface);
@@ -128,7 +155,7 @@
     .uxboard-grid {
         width: 100%;
         height: auto;
-        grid-template-columns: repeat(var(--cols), minmax(60px, 1fr));
-        grid-template-rows: repeat(var(--rows), 60px);
+        grid-template-columns: repeat(var(--cols), minmax(42px, 1fr));
+        grid-template-rows: repeat(var(--rows), minmax(42px, 1fr));
     }
 }

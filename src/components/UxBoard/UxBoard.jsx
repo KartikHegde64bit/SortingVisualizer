@@ -21,7 +21,13 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
     const [startCell, setStartCell] = useState({ row: 0, col: 0 });
 
     const [speed, setSpeed] = useState(200);
+    const [rowInput, setRowInput] = useState(inpRowLen);
+    const [colInput, setColInput] = useState(inpColLen);
     const delay = useMemo(() => speed, [speed]);
+    const cellSize = useMemo(() => {
+        const largestSide = Math.max(rows, cols);
+        return Math.max(56, Math.floor(440 / largestSide));
+    }, [rows, cols]);
 
     //setHighlightedCell(new Array(rows).fill(0).map(() => new Array(cols).fill(0)))
 
@@ -96,6 +102,18 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
         setHighlightedCellGrid(Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0)));
     }
 
+    const applyGridSize = () => {
+        const nextRows = Math.min(8, Math.max(2, parseInt(rowInput, 10) || 4));
+        const nextCols = Math.min(8, Math.max(2, parseInt(colInput, 10) || 4));
+
+        const nextMatrix = generateRandomMatrix(nextRows, nextCols);
+        setInputMatrix(nextMatrix);
+        setHighlightedCellGrid(Array.from({ length: nextRows }, () => Array.from({ length: nextCols }, () => 0)));
+        setStartCell({ row: 0, col: 0 });
+        setRowInput(nextRows);
+        setColInput(nextCols);
+    };
+
     return ( 
         <div className='uxboard-wrapper'>
             <div className='uxboard-layout'>
@@ -122,6 +140,32 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
                                 onChange={(e) => setSpeed(parseInt(e.target.value, 10))}
                             />
                         </div>
+                        <div className='control-group grid-customize'>
+                            <label>Customize grid size</label>
+                            <div className='grid-size-inputs'>
+                                <div>
+                                    <span>Rows</span>
+                                    <input
+                                        type='number'
+                                        min='2'
+                                        max='8'
+                                        value={rowInput}
+                                        onChange={(e) => setRowInput(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <span>Columns</span>
+                                    <input
+                                        type='number'
+                                        min='2'
+                                        max='8'
+                                        value={colInput}
+                                        onChange={(e) => setColInput(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <button className='secondary apply-grid' onClick={applyGridSize}>Apply Grid Size</button>
+                        </div>
                         <div className='control-actions'>
                             <button className='primary' onClick={randomiseMatrixValues}>Randomize Grid</button>
                             <button className='secondary' onClick={markRandomCell}>Mark Random Cell</button>
@@ -133,7 +177,7 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
 
                 <div className='uxboard-right'>
                     <div className='uxboard-grid-container'>
-                        <div className="uxboard-grid" style={{ "--rows": rows, "--cols": cols }}>
+                        <div className="uxboard-grid" style={{ "--rows": rows, "--cols": cols, "--cell-size": `${cellSize}px` }}>
                             {inputMatrix.map((row, rowIndex) => 
                                 row.map((cellValue, colIndex) => (
                                     <UxCell key={`${rowIndex}-${colIndex}`} rowIndex={rowIndex} colIndex={colIndex} cellValue={cellValue} isHighlighted={highlightedCellGrid[rowIndex][colIndex]} />
