@@ -15,14 +15,17 @@ const GettingStarted = () => {
     }
 
     return (
-        <div>
-            <div className='intro-text'>
-                What Would You Like To Do ?
-            </div>
-            <div>
-                <button className='sorting-button' onClick={() => buttonRouteHandler("sortingRoute")}>Visualise Sorting Algorithms</button>
+        <div className='getting-started'>
+            <div className='intro-text'>Visualize algorithms without the clutter</div>
+            <div className='intro-subtext'>Choose a playground to explore step-by-step animations.</div>
+            <div className='start-actions'>
+                <button className='primary-button' onClick={() => buttonRouteHandler("sortingRoute")}>
+                    Sorting Algorithms
+                </button>
 
-                <button className='graph-button' onClick={() => buttonRouteHandler("graphRoute")}>Visualise Graph Algorithms</button>
+                <button className='secondary-button' onClick={() => buttonRouteHandler("graphRoute")}>
+                    Graph Algorithms
+                </button>
             </div>
         </div>
     )

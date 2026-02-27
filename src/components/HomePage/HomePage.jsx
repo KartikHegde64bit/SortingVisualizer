@@ -25,9 +25,21 @@ const router = createBrowserRouter([
 
 class HomePage extends Component {
     render() {
+        const { theme, onToggleTheme } = this.props;
         return (
             <div id='homepage' className='homepage'>
-                <RouterProvider router={router} />
+                <header className="app-header">
+                    <div className="brand">Sorting Visualizer</div>
+                    <div className="header-actions">
+                        <span className="theme-label">{theme === 'light' ? 'Light' : 'Dark'} mode</span>
+                        <button className="theme-toggle" onClick={onToggleTheme}>
+                            {theme === 'light' ? '🌙' : '☀️'}
+                        </button>
+                    </div>
+                </header>
+                <main className="app-content">
+                    <RouterProvider router={router} />
+                </main>
             </div>
         );
     }

@@ -1,11 +1,54 @@
-.sorting-button{
-    /* display: flex; */
-    margin-left: 80px;
+.getting-started {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
 }
 
 .intro-text{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+}
+
+.intro-subtext {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.start-actions {
     display: flex;
-    margin-left: 100px;
-    font-size: large;
-    margin-bottom: 40px;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.primary-button,
+.secondary-button {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-button {
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #f8fafc;
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.25);
+}
+
+.secondary-button {
+    background: var(--surface-muted);
+    color: var(--text-primary);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.1);
 }
