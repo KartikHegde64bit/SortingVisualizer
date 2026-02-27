@@ -92,6 +92,11 @@ class SortingComponent extends Component {
         );
     };
 
+    handleSpeedChange = (event) => {
+        const delay = parseInt(event.target.value, 10);
+        this.setState({ delay });
+    };
+
     generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
     generateRandomArray = () => {
@@ -206,6 +211,17 @@ class SortingComponent extends Component {
                         <button className="generate-button" onClick={this.generateRandomArray}>
                             New Array
                         </button>
+                        <div className="speed-control">
+                            <label>Animation speed ({this.state.delay} ms)</label>
+                            <input
+                                type="range"
+                                min="50"
+                                max="1000"
+                                step="50"
+                                value={this.state.delay}
+                                onChange={this.handleSpeedChange}
+                            />
+                        </div>
                         <div className="step-counter">
                             Step {currentStep + 1} / {arraySteps.length}
                         </div>

@@ -57,6 +57,21 @@
 	color: var(--text-secondary);
 }
 
+.speed-control {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.speed-control label {
+	font-weight: 600;
+	color: var(--text-secondary);
+}
+
+.speed-control input[type='range'] {
+	width: 100%;
+}
+
 .frame {
 	margin: 0;
 	display: flex;

@@ -1,55 +1,58 @@
-import React, { Component } from 'react';
-import * as ReactDOM from "react-dom/client";
+import React from 'react';
 
 import './HomePage.css';
 import UxBoard from '../UxBoard/UxBoard';
 import SortingComponent from '../SortingComponent/SortingComponent';
 import GettingStarted from '../GettingStarted/GettingStarted';
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
-const router = createBrowserRouter([
-    {
-        path: "",
-        element: <GettingStarted/>
-    },
-    {
-        path: "/sortAlgorithms",
-        element: <SortingComponent/>
-    },
-    {
-        path: "/graphAlgorithms",
-        element: <UxBoard/>
+const Header = ({ theme, onToggleTheme }) => {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const isSortingPage = location.pathname === '/sortAlgorithms';
+    const isGraphPage = location.pathname === '/graphAlgorithms';
+    const showHome = isSortingPage || isGraphPage;
+
+    let title = 'Sorting Visualizer';
+    if (isGraphPage) {
+        title = 'Graph Traversal Visualizer';
     }
-]);
 
-class HomePage extends Component {
-    render() {
-        const { theme, onToggleTheme } = this.props;
-        return (
+    return (
+        <header className="app-header">
+            <div className="header-left">
+                {showHome ? (
+                    <button className="header-home" onClick={() => navigate('/')}>Home</button>
+                ) : null}
+                <div className="brand">{title}</div>
+            </div>
+            <div className="header-actions">
+                <span className="theme-label">{theme === 'light' ? 'Light' : 'Dark'} mode</span>
+                <button className="theme-toggle" onClick={onToggleTheme}>
+                    {theme === 'light' ? '🌙' : '☀️'}
+                </button>
+            </div>
+        </header>
+    );
+};
+
+const HomePage = ({ theme, onToggleTheme }) => {
+    return (
+        <BrowserRouter>
             <div id='homepage' className='homepage'>
-                <header className="app-header">
-                    <div className="brand">Sorting Visualizer</div>
-                    <div className="header-actions">
-                        <span className="theme-label">{theme === 'light' ? 'Light' : 'Dark'} mode</span>
-                        <button className="theme-toggle" onClick={onToggleTheme}>
-                            {theme === 'light' ? '🌙' : '☀️'}
-                        </button>
-                    </div>
-                </header>
+                <Header theme={theme} onToggleTheme={onToggleTheme} />
                 <main className="app-content">
-                    <RouterProvider router={router} />
+                    <Routes>
+                        <Route path="/" element={<GettingStarted />} />
+                        <Route path="/sortAlgorithms" element={<SortingComponent />} />
+                        <Route path="/graphAlgorithms" element={<UxBoard />} />
+                    </Routes>
                 </main>
             </div>
-        );
-    }
-}
-
-const root = ReactDOM.createRoot(document.getElementById("root")); // Ensure you use the correct root ID
-root.render(
-    <React.StrictMode>
-        <HomePage />
-    </React.StrictMode>
-);
+        </BrowserRouter>
+    );
+};
 
 export default HomePage;

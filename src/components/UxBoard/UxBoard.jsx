@@ -3,10 +3,8 @@ import './UxBoard.css';
 import UxCell from '../UxCell/UxCell';
 import { breadthFirstSearchFor2DGrid } from '../../algorithms/graph/bfs';
 import { depthFirstSearchFor2DGrid } from '../../algorithms/graph/dfs';
-import { useNavigate } from 'react-router-dom';
 
 const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
-    const navigate = useNavigate();
     const [inputMatrix, setInputMatrix] = useState([
         [1, 1, 0, 1],
         [0, 1, 0, 1],
@@ -100,16 +98,6 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
         <div className='uxboard-wrapper'>
             <div className='uxboard-layout'>
                 <div className='uxboard-left'>
-                    <div className='uxboard-header'>
-                        <div className='home-and-title'>
-                            <button className='home-button' onClick={() => navigate('/')}>Home</button>
-                            <div>
-                                <div className='uxboard-title'>Graph Traversal Visualizer</div>
-                                <div className='uxboard-subtitle'>Currently showing: {selectedOption}</div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div className='uxboard-controls'>
                         <div className='control-group'>
                             <label>Algorithm</label>

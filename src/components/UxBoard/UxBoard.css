@@ -16,46 +16,12 @@
 .uxboard-left {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1rem;
 }
 
 .uxboard-right {
     display: flex;
     justify-content: center;
-}
-
-.uxboard-header {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1rem 1.25rem;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
-}
-
-.home-and-title {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-}
-
-.uxboard-title {
-    font-size: 1.2rem;
-    font-weight: 800;
-}
-
-.uxboard-subtitle {
-    color: var(--text-secondary);
-    margin-top: 0.25rem;
-}
-
-.home-button {
-    border: 1px solid var(--border);
-    background: var(--surface-muted);
-    color: var(--text-primary);
-    padding: 0.65rem 1rem;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
 }
 
 .uxboard-controls {
