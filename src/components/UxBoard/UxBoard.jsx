@@ -98,50 +98,59 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
 
     return ( 
         <div className='uxboard-wrapper'>
-            <div className='uxboard-header'>
-                <div>
-                    <div className='uxboard-title'>Graph Traversal Visualizer</div>
-                    <div className='uxboard-subtitle'>Currently showing: {selectedOption}</div>
-                </div>
-                <button className='home-button' onClick={() => navigate('/')}>Home</button>
-            </div>
+            <div className='uxboard-layout'>
+                <div className='uxboard-left'>
+                    <div className='uxboard-header'>
+                        <div className='home-and-title'>
+                            <button className='home-button' onClick={() => navigate('/')}>Home</button>
+                            <div>
+                                <div className='uxboard-title'>Graph Traversal Visualizer</div>
+                                <div className='uxboard-subtitle'>Currently showing: {selectedOption}</div>
+                            </div>
+                        </div>
+                    </div>
 
-            <div className='uxboard-controls'>
-                <div className='control-group'>
-                    <label>Algorithm</label>
-                    <select value={selectedOption} onChange={handleOptionChange}>
-                        {options.map((option) => (
-                            <option key={option} value={option}>
-                                {option}
-                            </option>
-                        ))}
-                    </select>
+                    <div className='uxboard-controls'>
+                        <div className='control-group'>
+                            <label>Algorithm</label>
+                            <select value={selectedOption} onChange={handleOptionChange}>
+                                {options.map((option) => (
+                                    <option key={option} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className='control-group'>
+                            <label>Animation speed ({delay} ms)</label>
+                            <input
+                                type='range'
+                                min='50'
+                                max='800'
+                                step='50'
+                                value={speed}
+                                onChange={(e) => setSpeed(parseInt(e.target.value, 10))}
+                            />
+                        </div>
+                        <div className='control-actions'>
+                            <button className='primary' onClick={randomiseMatrixValues}>Randomize Grid</button>
+                            <button className='secondary' onClick={markRandomCell}>Mark Random Cell</button>
+                            <button className='secondary' onClick={() => clearGrid()}>Clear Highlights</button>
+                            <button className='primary outline' onClick={() => initiateAlgorithmOnGrid(selectedOption)}>Start</button>
+                        </div>
+                    </div>
                 </div>
-                <div className='control-group'>
-                    <label>Animation speed ({delay} ms)</label>
-                    <input
-                        type='range'
-                        min='50'
-                        max='800'
-                        step='50'
-                        value={speed}
-                        onChange={(e) => setSpeed(parseInt(e.target.value, 10))}
-                    />
-                </div>
-                <div className='control-actions'>
-                    <button className='primary' onClick={randomiseMatrixValues}>Randomize Grid</button>
-                    <button className='secondary' onClick={markRandomCell}>Mark Random Cell</button>
-                    <button className='secondary' onClick={() => clearGrid()}>Clear Highlights</button>
-                </div>
-            </div>
 
-            <div className='uxboard-grid-container'>
-                <div className="uxboard-grid" style={{ "--rows": rows, "--cols": cols }}>
-                    {inputMatrix.map((row, rowIndex) => 
-                        row.map((cellValue, colIndex) => (
-                            <UxCell key={`${rowIndex}-${colIndex}`} rowIndex={rowIndex} colIndex={colIndex} cellValue={cellValue} isHighlighted={highlightedCellGrid[rowIndex][colIndex]} />
-                        ))
-                    )}
+                <div className='uxboard-right'>
+                    <div className='uxboard-grid-container'>
+                        <div className="uxboard-grid" style={{ "--rows": rows, "--cols": cols }}>
+                            {inputMatrix.map((row, rowIndex) => 
+                                row.map((cellValue, colIndex) => (
+                                    <UxCell key={`${rowIndex}-${colIndex}`} rowIndex={rowIndex} colIndex={colIndex} cellValue={cellValue} isHighlighted={highlightedCellGrid[rowIndex][colIndex]} />
+                                ))
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
