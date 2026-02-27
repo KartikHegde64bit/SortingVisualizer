@@ -35,7 +35,7 @@ export const breadthFirstSearch = (adjacenyMatrix, startNode) => {
  * @returns 
  */
 
-export const breadthFirstSearchFor2DGrid = async (grid, startRow, startCol, callBackFunction) => {
+export const breadthFirstSearchFor2DGrid = async (grid, startRow, startCol, callBackFunction, delay = 200) => {
     // Grid dimensions
     const rows = grid.length;
     const cols = grid[0].length;
@@ -79,7 +79,7 @@ export const breadthFirstSearchFor2DGrid = async (grid, startRow, startCol, call
                         callBackFunction.call(undefined, newRow, newCol);
                         visited.add(`${newRow},${newCol}`);
                 }
-                await new Promise(resolve => setTimeout(resolve, 200));
+                await new Promise(resolve => setTimeout(resolve, delay));
             // }, 500)
         }
     }

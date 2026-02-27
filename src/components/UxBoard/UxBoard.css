@@ -1,21 +1,131 @@
+.uxboard-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.uxboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+.uxboard-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.uxboard-subtitle {
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.home-button {
+    border: 1px solid var(--border);
+    background: var(--surface-muted);
+    color: var(--text-primary);
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.uxboard-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.control-group label {
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.control-group select,
+.control-group input[type='range'] {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface-muted);
+    color: var(--text-primary);
+}
+
+.control-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.control-actions .primary,
+.control-actions .secondary {
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.control-actions .primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #f8fafc;
+}
+
+.control-actions .secondary {
+    background: var(--surface-muted);
+    color: var(--text-primary);
+}
+
+.control-actions button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+.uxboard-grid-container{
+    display: flex;
+    justify-content: center;
+}
+
 .uxboard-grid {
     display: grid;
     justify-content: center;
     width: 500px;
     height: 500px;
-    grid-template-columns: repeat(var(--cols), 100px); /* Use the columns variable */
-    grid-template-rows: repeat(var(--rows), 100px); /* Use the rows variable */
-    gap: 2px;
+    grid-template-columns: repeat(var(--cols), 100px);
+    grid-template-rows: repeat(var(--rows), 100px);
+    gap: 10px;
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
 }
 
-.uxboard-grid-container{
-    align-items: center;
-    justify-content: center;
-}
-
-.run-button{
-    border: 2px solid black;
-    background-color: white;
-    width: 50px;
-    height: 30px;
+@media (max-width: 700px) {
+    .uxboard-grid {
+        width: 100%;
+        height: auto;
+        grid-template-columns: repeat(var(--cols), minmax(60px, 1fr));
+        grid-template-rows: repeat(var(--rows), 60px);
+    }
 }

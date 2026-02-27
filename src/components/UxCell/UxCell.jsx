@@ -1,19 +1,11 @@
 import React from 'react'
 import './UxCell.css'
 const UxCell = (props) => {
-	let rowIndex = props.rowIndex;
-	let colIndex = props.colIndex;
-	let cellValue = props.cellValue;
-	let isHighlighted = props.isHighlighted;
-	let cellStyle = {
-		backgroundColor: isHighlighted ? "red": "#eae4e4",
-		border: '5px solid #3a2b2b',
-		position: 'relative',
-		width: '70px',
-		height: '70px',
-		alignItems: 'center',
-		display: 'flex',
-		justifyContent: 'center'
+	const { rowIndex, colIndex, cellValue, isHighlighted } = props;
+	const cellStyle = {
+		backgroundColor: isHighlighted ? 'var(--accent)' : 'var(--surface-muted)',
+		border: '2px solid var(--border)',
+		color: 'var(--text-primary)',
 	};
 
 	return (

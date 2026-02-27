@@ -1,5 +1,5 @@
 
-export async function depthFirstSearchFor2DGrid(grid, startRow, startCol, callBackFunction){
+export async function depthFirstSearchFor2DGrid(grid, startRow, startCol, callBackFunction, delay = 500){
     const rows = grid.length;
     const cols = grid[0].length;
 
@@ -17,7 +17,7 @@ export async function depthFirstSearchFor2DGrid(grid, startRow, startCol, callBa
         return row >= 0 && row < rows && col >= 0 && col < cols;
     }
     
-    dfsWithDelay(startRow, startCol, directions, directionValidator, visited, callBackFunction);
+    dfsWithDelay(startRow, startCol, directions, directionValidator, visited, callBackFunction, delay);
 }
 
 // export async function dfsWithDelay(row, col, directions, directionValidator, visited, callBackFunction) {
@@ -43,7 +43,7 @@ export async function depthFirstSearchFor2DGrid(grid, startRow, startCol, callBa
 //     }
 // }
 
-export async function dfsWithDelay(row, col, directions, directionValidator, visited, callBackFunction) {
+export async function dfsWithDelay(row, col, directions, directionValidator, visited, callBackFunction, delay) {
     if (!directionValidator(row, col) || visited.has(`${row},${col}`)) {
         return;
     }
@@ -53,7 +53,7 @@ export async function dfsWithDelay(row, col, directions, directionValidator, vis
     await callBackFunction(row, col); // Ensure callback resolves before proceeding
 
     // Delay before exploring neighbors
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, delay));
 
     // Explore all neighbors
     for (const [dRow, dCol] of directions) {
@@ -63,7 +63,8 @@ export async function dfsWithDelay(row, col, directions, directionValidator, vis
             directions,
             directionValidator,
             visited,
-            callBackFunction
+            callBackFunction,
+            delay
         );
     }
 }
