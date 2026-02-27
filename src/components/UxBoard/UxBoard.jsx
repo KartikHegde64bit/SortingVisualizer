@@ -18,6 +18,7 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
     const [highlightedCellGrid, setHighlightedCellGrid] = useState(
         new Array(rows).fill(0).map(() => new Array(cols).fill(0))
     );
+    const [startCell, setStartCell] = useState({ row: 0, col: 0 });
 
     const [speed, setSpeed] = useState(200);
     const delay = useMemo(() => speed, [speed]);
@@ -25,9 +26,11 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
     //setHighlightedCell(new Array(rows).fill(0).map(() => new Array(cols).fill(0)))
 
     const highlightCell = (row, col) => {
-        const updatedHighlightedGrid = [...highlightedCellGrid];
-        updatedHighlightedGrid[row][col] = true;
-        setHighlightedCellGrid(updatedHighlightedGrid);
+        setHighlightedCellGrid((prevGrid) => {
+            const updatedHighlightedGrid = prevGrid.map((gridRow) => [...gridRow]);
+            updatedHighlightedGrid[row][col] = true;
+            return updatedHighlightedGrid;
+        });
     };
 
     const randomiseMatrixValues = () => {
@@ -61,32 +64,31 @@ const UxBoard = ({ inpRowLen = 4, inpColLen = 4 }) => {
     const markRandomCell = () => {
         const randomRow = Math.floor(Math.random() * rows);
         const randomCol = Math.floor(Math.random() * cols);
+        setStartCell({ row: randomRow, col: randomCol });
         highlightCell(randomRow, randomCol);
     }
 
     const initiateAlgorithmOnGrid = (algorithm) => {
+        const { row, col } = startCell;
         switch(algorithm) {
             case "Breadth First Search":
-                breadthFirstSearchFor2DGrid(inputMatrix, 0, 0, highlightCell, delay);
+                breadthFirstSearchFor2DGrid(inputMatrix, row, col, highlightCell, delay);
                 break;
             case "Depth First Search":
-                depthFirstSearchFor2DGrid(inputMatrix, 0, 0, highlightCell, delay);
+                depthFirstSearchFor2DGrid(inputMatrix, row, col, highlightCell, delay);
                 break;
         }
        
     }
 
     const [selectedOption, setSelectedOption] = useState('Breadth First Search'); 
-    const options = ['Breadth First Search', 'Depth First Search', 'coming soon..'];
+    const options = ['Breadth First Search', 'Depth First Search'];
 
     const handleOptionChange = (event) => {
         const algorithm = event.target.value;
-    
-        // Clear the grid and initiate the algorithm only after the grid is cleared
-        clearGrid(() => {
-            setSelectedOption(algorithm);
-            initiateAlgorithmOnGrid(algorithm);
-        });
+
+        clearGrid();
+        setSelectedOption(algorithm);
     };
 
     const clearGrid = () => {
